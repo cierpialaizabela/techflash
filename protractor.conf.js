@@ -1,24 +1,23 @@
 exports.config = {
-    //Set global scripts timeout
+    //Global timeout
     allScriptsTimeout: 10000,
 
-    //Directly connect with browser driver, without setting up server
     directConnect: true,
 
-    //Set browser to be used in tests
+    //Be passed to the webdriver instance (ike browser)
     capabilities: {
         browserName: "chrome"
     },
 
-    //Set to custom if using different framework than Jasmine
+    //Test framework
     framework: 'jasmine',
 
-    //Specify path to feature files
+    //Where the test files are
     specs: [
         './e2e/**/*.spec.ts'
     ],
 
-    //These will be executed before cucumber hooks!
+    //Before tests start
     onPrepare() {
         browser
             .manage()
@@ -29,7 +28,7 @@ exports.config = {
             .timeouts()
             .implicitlyWait(5000);
 
-        //Turns off waiting for angular! If set to false, be sure you are testing an Angular app.
+        //Turned off because our page is not Angular page
         browser.ignoreSynchronization = true;
 
         //Enable TypeScript in the tests
@@ -38,7 +37,7 @@ exports.config = {
         });
     },
 
-    //This will be executed after all tests and hooks!
+    //After the tests end
     onComplete() {
         browser.quit();
     }
